@@ -25,7 +25,7 @@ class Books extends Component {
     event.preventDefault();
     let query = this.state.title.split(" ").join("+");
     axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&`+ API_KEY)
-  .then(response => this.setState({ results: response.data.items }))
+  .then(response => this.setState({ title: "", results: response.data.items }))
   .catch(function (error) {
     console.log(error);
   });
