@@ -1,28 +1,24 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "rbx/index.css";
+import {  } from "rbx";
+import Books from './pages/BookSearch'
+import FavoriteBooks from './pages/BookFavorites'
+import NoPage from './pages/NoPage'
 
-class App extends Component {
-  render() {
+
+function App () {
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Books} />
+          <Route exact path="/books" component={Books} />
+          <Route exact path="/favorites" render={() => <FavoriteBooks title={this.state.title}/>} />
+          <Route component={NoPage} />
+        </Switch>
+      </Router>
     );
-  }
 }
 
 export default App;
