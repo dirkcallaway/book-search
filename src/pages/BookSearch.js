@@ -4,6 +4,7 @@ import Results from "../components/Results"
 import NoResults from "../components/NoResults"
 import "rbx/index.css";
 import { Field, Label, Control, Input, Button, Container, Section } from "rbx";
+const API_KEY = process.env.REACT_APP_BookKey;
 const axios = require('axios');
 
 class Books extends Component {
@@ -23,7 +24,7 @@ class Books extends Component {
   GetBooks = event => {
     event.preventDefault();
     let query = this.state.title.split(" ").join("+");
-    axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=AIzaSyC5Dp7_s18-pxa5-UkNhAz9tJhzLEyz7vc`)
+    axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&`+ API_KEY)
   .then(response => this.setState({ results: response.data.items }))
   .catch(function (error) {
     console.log(error);
