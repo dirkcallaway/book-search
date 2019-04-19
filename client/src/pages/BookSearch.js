@@ -21,6 +21,11 @@ class Books extends Component {
     });
   };
 
+  handleFavoriteClick (id) {
+    debugger
+    axios.post('/api/add', {data: "Test"});
+  }
+
   GetBooks = event => {
     event.preventDefault();
     let query = this.state.title.split(" ").join("+");
@@ -67,6 +72,9 @@ class Books extends Component {
                 title = {book.volumeInfo.title}
                 synopsis = {book.volumeInfo.description}
                 author = {book.volumeInfo.authors}
+                link = {book.volumeInfo.previewLink}
+                handleFavoriteClick = {() => this.handleFavoriteClick(book.id)}
+                bookObj = {book}
               />
             );
           })}

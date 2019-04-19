@@ -14,7 +14,7 @@ function App () {
         <Switch>
           <Route exact path="/" component={Books} />
           <Route exact path="/books" component={Books} />
-          <Route exact path="/favorites" render={() => <FavoriteBooks title={this.state.title}/>} />
+          <Route exact path="/favorites" component={FavoriteBooks} />
           <Route component={NoPage} />
         </Switch>
       </Router>
