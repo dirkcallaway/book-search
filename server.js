@@ -4,6 +4,7 @@ const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
 const cors = require('cors');
+const booksController = require("./controllers/booksController");
 
 app.use(cors())
 
@@ -17,12 +18,24 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 // app.use(routes);
 app.post("/api/add", (req, res) => {
-  const { body } = req
-  console.log(body);
+  const { body } = req;
+  const { title, authors, description, previewLink } = req.body.data.volumeInfo;
+  const { thumbnail } = req.body.data.volumeInfo.imageLinks;
+  const { id } = req.body.data;
+  const favoriteBook = {
+    title: title,
+    author: authors[0],
+    description: description,
+    previewLink: previewLink,
+    thumbnail: thumbnail,
+    bookID: id
+  }
+  booksController.addFavorite(favoriteBook);
+
 })
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/book-search");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/booksearch");
 
 // Start the API server
 app.listen(PORT, function() {

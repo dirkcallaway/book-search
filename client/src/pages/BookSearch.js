@@ -22,8 +22,8 @@ class Books extends Component {
   };
 
   handleFavoriteClick (id) {
-    debugger
-    axios.post('/api/add', {data: "Test"});
+    const savedBook = this.state.results.find(book => book.id === id)
+    axios.post('/api/add', {data: savedBook});
   }
 
   GetBooks = event => {
@@ -74,7 +74,6 @@ class Books extends Component {
                 author = {book.volumeInfo.authors}
                 link = {book.volumeInfo.previewLink}
                 handleFavoriteClick = {() => this.handleFavoriteClick(book.id)}
-                bookObj = {book}
               />
             );
           })}

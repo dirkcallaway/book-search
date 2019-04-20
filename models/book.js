@@ -6,7 +6,6 @@ const bookSchema = new Schema({
   author: { type: String, required: true },
   synopsis: String,
   thumbnail: String,
-  isFavorite: { type: Boolean, default: false },
   link: String,
   bookID: {type: String, required: true}
 });

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const booksController = require("../../controllers/booksController");
 
-router.route("/add")
+router.route("/api/add")
   .post(booksController.addFavorite);
 
 
