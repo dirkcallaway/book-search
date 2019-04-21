@@ -4,7 +4,6 @@ import { Container, Button, Tile, Title, Notification, Image, Column} from "rbx"
 import "./style.css"
 
 function Results (props) {
-
   return (
     <Container>
       <Tile kind="ancestor">
@@ -25,7 +24,7 @@ function Results (props) {
             </Column>
             </Column.Group>
             <Button.Group align="right">
-            <Button outlined color="white" className="d-inline-block" data-info={props.bookObj} onClick={props.handleFavoriteClick}>
+            <Button outlined color="white" className="d-inline-block" onClick={props.handleFavoriteClick}>
               Favorite
             </Button>
             <Button as="a" outlined color="white" className="d-inline-block" href={props.link} target="_blank">

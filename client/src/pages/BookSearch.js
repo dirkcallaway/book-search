@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Header from "../components/Header"
 import Results from "../components/Results"
 import NoResults from "../components/NoResults"
+import NavBar from "../components/NavBar"
+import API from "../utils/API"
 import "rbx/index.css";
 import { Field, Label, Control, Input, Button, Container, Section } from "rbx";
 const API_KEY = process.env.REACT_APP_BookKey;
@@ -21,10 +23,24 @@ class Books extends Component {
     });
   };
 
-  handleFavoriteClick (id) {
+  handleSave = (id) => {
     const savedBook = this.state.results.find(book => book.id === id)
-    axios.post('/api/add', {data: savedBook});
-  }
+    API.addFavorite({
+      title: savedBook.volumeInfo.title,
+      author: savedBook.volumeInfo.authors[0],
+      synopsis: savedBook.volumeInfo.description,
+      link: savedBook.volumeInfo.previewLink,
+      thumbnail: savedBook.volumeInfo.imageLinks.thumbnail,
+      bookID: savedBook.id
+    })
+    .then(console.log("saved to DB"))
+    .catch(err => console.log(err));
+}
+
+  // handleFavoriteClick (id) {
+  //   const savedBook = this.state.results.find(book => book.id === id)
+  //   API.addFavorite(savedBook);
+  // }
 
   GetBooks = event => {
     event.preventDefault();
@@ -39,6 +55,7 @@ class Books extends Component {
   render() {
   return (
     <div>
+      <NavBar />
       <Header />
       <Section>
         <Container>
@@ -73,7 +90,7 @@ class Books extends Component {
                 synopsis = {book.volumeInfo.description}
                 author = {book.volumeInfo.authors}
                 link = {book.volumeInfo.previewLink}
-                handleFavoriteClick = {() => this.handleFavoriteClick(book.id)}
+                handleFavoriteClick = {() => this.handleSave(book.id)}
               />
             );
           })}

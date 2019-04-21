@@ -1,15 +1,52 @@
 import React, { Component } from 'react';
-import Header from "../components/Header"
-import Favorites from "../components/Favorites"
+import Header from "../components/Header";
+import Favorites from "../components/Favorites";
+import NoFavorites from "../components/NoFavorites"
+import NavBar from "../components/NavBar"
+import API from "../utils/API"
 
-function FavoriteBooks (props) {
+class FavoriteBooks extends Component {
+  state = {
+    books: []
+  }
 
-  return (
-    <div>
-      <Header />
-      <Favorites title={props.title}/>
-    </div>
-  )
+  componentDidMount() {
+    this.loadBooks();
+  }
+
+  loadBooks = () => {
+    API.getFavorites()
+        .then(res => this.setState({ books: res.data }))
+        .catch(err => console.log(err));
+  }
+
+  render() {
+    return (
+      <div>
+        <NavBar />
+        <Header />
+        {this.state.books.length ? 
+        <div>
+          {this.state.books.map(book => {
+            return (
+              <Favorites 
+                key = {book.bookID}
+                thumbnail = {book.thumbnail}
+                title = {book.title}
+                synopsis = {book.synopsis}
+                author = {book.author}
+                link = {book.link}
+                // handleFavoriteClick = {() => this.handleFavoriteClick(book.id)}
+              />
+            );
+          })}
+        </div>
+        : 
+        <NoFavorites />
+      }
+      </div>
+    )
+  }
 }
 
 export default FavoriteBooks

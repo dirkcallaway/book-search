@@ -16,26 +16,11 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 // Add routes, both API and view
-// app.use(routes);
-app.post("/api/add", (req, res) => {
-  const { body } = req;
-  const { title, authors, description, previewLink } = req.body.data.volumeInfo;
-  const { thumbnail } = req.body.data.volumeInfo.imageLinks;
-  const { id } = req.body.data;
-  const favoriteBook = {
-    title: title,
-    author: authors[0],
-    description: description,
-    previewLink: previewLink,
-    thumbnail: thumbnail,
-    bookID: id
-  }
-  booksController.addFavorite(favoriteBook);
+app.use(routes);
 
-})
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/booksearch");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/booksearch", { useNewUrlParser: true });
 
 // Start the API server
 app.listen(PORT, function() {

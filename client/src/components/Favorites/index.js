@@ -1,36 +1,34 @@
 import React from "react";
 import "rbx/index.css";
-import { Container, Button, Section, Tile, Title, Notification, Image, Column} from "rbx";
+import { Container, Button, Tile, Title, Notification, Image, Column} from "rbx";
 import "./style.css"
 
-function Favorites (props) {
+function Results (props) {
+
   return (
-    <Section>
     <Container>
-      <Title>Favorites:</Title>
       <Tile kind="ancestor">
         <Tile size={12} kind="parent">
           <Tile as={Notification} kind="child" color="primary">
             <Title>{props.title}</Title>
-            <Title subtitle>Author</Title>
+            <Title subtitle>{props.author}</Title>
             <Column.Group>
             <Column size="2">
             <Image.Container size={128} >
-              <Image src="https://bulma.io/images/placeholders/128x128.png" />
+              <Image src={props.thumbnail} />
             </Image.Container>
             </Column>
             <Column size="10">
             <p>
-              Here is a summary of the book.  It is longer than the title and author. It has information
-              about the story.  It doesn't give away too much though.  Just enough.
+              {props.synopsis}
             </p>
             </Column>
             </Column.Group>
             <Button.Group align="right">
-            <Button outlined color="white" className="d-inline-block">
-              Favorite
+            <Button outlined color="white" className="d-inline-block" data-info={props.bookObj} onClick={props.handleFavoriteClick}>
+              Remove
             </Button>
-            <Button outlined color="white" className="d-inline-block">
+            <Button as="a" outlined color="white" className="d-inline-block" href={props.link} target="_blank">
               View
             </Button>
             </Button.Group>
@@ -38,8 +36,7 @@ function Favorites (props) {
         </Tile>
       </Tile>
     </Container>
-    </Section>
   )
 }
 
-export default Favorites
+export default Results
