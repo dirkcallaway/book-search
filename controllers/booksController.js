@@ -12,7 +12,7 @@ module.exports = {
   },
   removeFavorite: function(req, res) {
     db.Book
-      .findById(req.params.id)
+      .deleteOne({bookID: req.params.id})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

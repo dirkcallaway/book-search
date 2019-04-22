@@ -10,14 +10,20 @@ class FavoriteBooks extends Component {
     books: []
   }
 
+  handleRemoveFavoriteClick = (id) => {
+    API.removeFavorite(id)
+    .then(res => this.loadBooks())
+    .catch(err => console.log(err));
+  }
+
   componentDidMount() {
     this.loadBooks();
   }
 
   loadBooks = () => {
     API.getFavorites()
-        .then(res => this.setState({ books: res.data }))
-        .catch(err => console.log(err));
+    .then(res => this.setState({ books: res.data }))
+    .catch(err => console.log(err));
   }
 
   render() {
@@ -36,7 +42,7 @@ class FavoriteBooks extends Component {
                 synopsis = {book.synopsis}
                 author = {book.author}
                 link = {book.link}
-                // handleFavoriteClick = {() => this.handleFavoriteClick(book.id)}
+                handleFavoriteClick = {() => this.handleRemoveFavoriteClick(book.bookID)}
               />
             );
           })}
